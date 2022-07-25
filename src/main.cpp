@@ -484,7 +484,7 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
     // Create our UI elements only when shown for the first time.
 
     if(firstActivation) {
-
+        
         UnityEngine::GameObject* container = QuestUI::BeatSaberUI::CreateScrollableSettingsContainer(self->get_transform());
         QuestUI::BeatSaberUI::CreateUIButton(container->get_transform(), "BSQ+", [&](){
         });
@@ -496,11 +496,10 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
         AddConfigValueToggle(container->get_transform(), getModConfig().RotationEnabled);
         AddConfigValueIncrementFloat(container->get_transform(), getModConfig().RotationIncrement, 0, 5.0f, -180.0f, 180.0f);
 
+        //redbar
         QuestUI::BeatSaberUI::CreateUIButton(container->get_transform(), "RedBar", [&](){
         });
-
-        //redbar
-        self->get_gameObject()->AddComponent<Touchable*>();
+        //self->get_gameObject()->AddComponent<Touchable*>();
 
         QuestUI::BeatSaberUI::AddHoverHint(AddConfigValueToggle(container->get_transform(), getModConfig().Rainbow)->get_gameObject(), "overrides Fadeout");
 

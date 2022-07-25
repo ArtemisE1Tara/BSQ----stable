@@ -36,7 +36,7 @@ using namespace HMUI;
 
 //DEFINE_CLASS(RedBarViewController);
 
-void DidActivate(ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
+/*void DidActivate(ViewController* self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling){
     if(firstActivation) {
         self->get_gameObject()->AddComponent<Touchable*>();
         GameObject* container = BeatSaberUI::CreateScrollableSettingsContainer(self->get_transform());
@@ -70,3 +70,4 @@ void DidActivate(ViewController* self, bool firstActivation, bool addedToHierarc
         AddConfigValueColorPicker(container->get_transform(), getModConfig().Highhp);
     }
 }
+*/
