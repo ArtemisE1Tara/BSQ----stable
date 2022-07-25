@@ -8,6 +8,7 @@
 #include "HMUI/ViewController.hpp"
 #include "UnityEngine/UI/LayoutElement.hpp"
 
+
 DEFINE_CONFIG(ModConfig);
 float scale = 0.2f;
 
