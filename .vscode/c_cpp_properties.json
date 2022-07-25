@@ -1,0 +1,40 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25",
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include",
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include/*",
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\sources\\cxx-stl\\llvm-libc++\\include",
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include\\aarch64-linux-android",
+                "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\sources\\cxx-stl\\llvm-libc++\\include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "mergeConfigurations": false,
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "browse": {
+                "path": [
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25",
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include",
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include/*",
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\sources\\cxx-stl\\llvm-libc++\\include",
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\include\\aarch64-linux-android",
+                    "C:\\Users\\ahmed\\OneDrive\\Desktop\\Quest Mod Dev\\android-ndk-r25-windows\\android-ndk-r25\\sources\\cxx-stl\\llvm-libc++\\include",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}
