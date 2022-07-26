@@ -467,6 +467,29 @@ MAKE_HOOK_MATCH(SceneManager_ActiveSceneChanged, &UnityEngine::SceneManagement::
 }
 
 
+#include "main.hpp"
+#include "hooks.hpp"
+#include "GlobalNamespace/MainMenuViewController.hpp"
+#include "UnityEngine/UI/Button.hpp"
+#include "UnityEngine/GameObject.hpp"
+#include "HMUI/CurvedTextMeshPro.hpp"
+#include "UnityEngine/Resources.hpp"
+#include "questui/shared/QuestUI.hpp"
+#include "questui/shared/BeatSaberUI.hpp"
+//add level editor
+MAKE_HOOK_MATCH(LevelEditor, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
+*self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
+
+    LevelEditor(self, firstActivation, addedToHierarchy, screenSystemEnabling);
+
+    UnityEngine::UI::Button *beatmapEditorButton = self->dyn__beatmapEditorButton();
+    UnityEngine::GameObject *gameObject = beatmapEditorButton->get_gameObject();
+
+    gameObject->SetActive(true);
+
+}
+
+
 extern "C" void setup(ModInfo& info) {
     info.id = ID;
     info.version = VERSION;
@@ -556,6 +579,8 @@ extern "C" void load() {
     getLogger().info("Installing hooks...");
     
     INSTALL_HOOK(getLogger(), MainMenuUIHook);
+
+    INSTALL_HOOK(getLogger(), LevelEditor);
 
     INSTALL_HOOK(getLogger(), Results);
 
