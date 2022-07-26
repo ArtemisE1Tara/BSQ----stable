@@ -7,7 +7,18 @@
 	"packageId": "com.beatgames.beatsaber",
 	"packageVersion": "1.21.0",
 	"description": "Nothing here yet...",
-	"dependencies": [],
+	"dependencies": [
+		{
+			"version": ">=0.1.0",
+			"id": "MultiPlayerCore",
+			"downloadIfMissing": "https://github.com/EnderdracheLP/MultiplayerCore.Quest/releases/download/1.0.0/MultiplayerCore_1.21-1.0.0.qmod"
+		},
+		{
+			"version": ">=1.4.0",
+			"id": "BeatTogether",
+			"downloadIfMissing": "https://github.com/BeatTogether/BeatTogether.Quest/releases/download/v1.4.0/BeatTogether_v1.4.0.qmod"
+		}
+	],
 	"modFiles": [
 		"libbsq+.so"
 	],
