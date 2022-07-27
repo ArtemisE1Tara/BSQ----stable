@@ -7,8 +7,13 @@
 - Enable Full Combo Effects.
 - World Rotation
     - Shifts map's spawn points to the right or left while playing a song, even directly behind you!
- 
+<img src="images/1.jpg" alt="drawing" width="300"/>
 
+<img src="images/2.jpg" alt="drawing" width="300"/>
+
+**Also includes: RedBar**
+
+<img src="images/3.jpg" alt="drawing" width="300"/>
 
 ## Credits
 
