@@ -5,15 +5,18 @@
 - Enable Image Cover Expander.
 - Enable SearchFixes.
 - Enable Full Combo Effects.
+- GodMode
+    - Essentially makes your energy infinite, meaning that you can pass literally any level and still have your play and score uploaded to BeatLeader. 
+    - **NOTE:** Accuracy is not affected, you still need to make an effort to get a *good* score.
 - World Rotation
     - Shifts map's spawn points to the right or left while playing a song, even directly behind you!
-<img src="images/1.jpg" alt="drawing" width="300"/>
+<img src="images/1.jpg" alt="drawing" width="400"/>
 
-<img src="images/2.jpg" alt="drawing" width="300"/>
+<img src="images/2.jpg" alt="drawing" width="400"/>
 
 **Also includes: RedBar**
 
-<img src="images/3.jpg" alt="drawing" width="300"/>
+<img src="images/3.jpg" alt="drawing" width="400"/>
 
 ## Credits
 
