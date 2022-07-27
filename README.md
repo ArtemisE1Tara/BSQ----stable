@@ -2,6 +2,7 @@
 
 # Features
 - Enable BeatMapEditor button in the main menu.
+- Installs both modded multiplayer mods, MultiPlayerCore and BeatTogether automatically.
 - Enable Image Cover Expander.
 - Enable SearchFixes.
 - Enable Full Combo Effects.
