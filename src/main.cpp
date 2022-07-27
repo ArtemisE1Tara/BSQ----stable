@@ -42,7 +42,7 @@ Logger& getLogger() {
 //  // your code here 
 //}
 
-MAKE_HOOK_MATCH(MainMenuUIHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
+/*MAKE_HOOK_MATCH(MainMenuUIHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
 *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
     
     // Run the original method before our code.
@@ -70,6 +70,7 @@ MAKE_HOOK_MATCH(MainMenuUIHook, &GlobalNamespace::MainMenuViewController::DidAct
     
     // Set the text to "Skill Issue"
 }
+*/
 
 #include "main.hpp"
 
@@ -477,15 +478,35 @@ MAKE_HOOK_MATCH(SceneManager_ActiveSceneChanged, &UnityEngine::SceneManagement::
 #include "questui/shared/QuestUI.hpp"
 #include "questui/shared/BeatSaberUI.hpp"
 //add level editor
-MAKE_HOOK_MATCH(LevelEditor, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
+MAKE_AUTO_HOOK_MATCH(LevelEditor, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
 *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
-
-    LevelEditor(self, firstActivation, addedToHierarchy, screenSystemEnabling);
 
     UnityEngine::UI::Button *beatmapEditorButton = self->dyn__beatmapEditorButton();
     UnityEngine::GameObject *gameObject = beatmapEditorButton->get_gameObject();
 
-    gameObject->SetActive(true);
+    if(getModConfig().LevelEditor.GetValue()){
+
+        gameObject->SetActive(true);
+
+    }
+    else{
+
+        LevelEditor(self, firstActivation, addedToHierarchy, screenSystemEnabling);
+
+    }
+
+}
+
+#include "GlobalNamespace/GameEnergyCounter.hpp"
+#include "HMUI/ViewController.hpp"
+
+MAKE_AUTO_HOOK_MATCH(energy, &GameEnergyCounter::ProcessEnergyChange, void, GameEnergyCounter* self, float energyChange){
+    if(getModConfig().ENABLED.GetValue()){
+    energyChange = 100.0f;
+    }
+    else{
+            energy(self, energyChange);
+    }
 
 }
 
@@ -513,9 +534,12 @@ void DidActivate(HMUI::ViewController* self, bool firstActivation, bool addedToH
         });
         //QuestUI::BeatSaberUI::CreateText(container->get_transform(), "Unofficial");
 
-        AddConfigValueToggle(container->get_transform(), getModConfig().ModEnabled);
+        //AddConfigValueToggle(container->get_transform(), getModConfig().ModEnabled);
+        AddConfigValueToggle(container->get_transform(), getModConfig().LevelEditor);
         AddConfigValueToggle(container->get_transform(), getModConfig().ImageCoverExpanderEnabled);
         AddConfigValueToggle(container->get_transform(), getModConfig().FullComboEffectsEnabled);
+        //QuestUI::BeatSaberUI::CreateText(container->get_transform(), "Godmode by KodenameKRAK");
+        AddConfigValueToggle(container->get_transform(), getModConfig().ENABLED);
         AddConfigValueToggle(container->get_transform(), getModConfig().RotationEnabled);
         AddConfigValueIncrementFloat(container->get_transform(), getModConfig().RotationIncrement, 0, 5.0f, -180.0f, 180.0f);
 
@@ -559,9 +583,9 @@ extern "C" void load() {
     il2cpp_functions::Init();
     QuestUI::Init();
     //LoggerContextObject logger = getLogger().WithContext("load");
-    QuestUI::Register::RegisterModSettingsViewController(modInfo, DidActivate);
+    //QuestUI::Register::RegisterModSettingsViewController({modInfo, DidActivate});
     QuestUI::Register::RegisterMainMenuModSettingsViewController(modInfo, DidActivate);
-    QuestUI::Register::RegisterMainMenuModSettingsViewController<cm::CmSettingsViewController*>({"Custom Menu Text"});
+    QuestUI::Register::RegisterMainMenuModSettingsViewController<cm::CmSettingsViewController*>({"Custom Menu Text+"});
     
     il2cpp_functions::Init();
     getModConfig().Init(modInfo);
@@ -578,9 +602,7 @@ extern "C" void load() {
 
     getLogger().info("Installing hooks...");
     
-    INSTALL_HOOK(getLogger(), MainMenuUIHook);
-
-    INSTALL_HOOK(getLogger(), LevelEditor);
+    //INSTALL_HOOK(getLogger(), MainMenuUIHook);
 
     INSTALL_HOOK(getLogger(), Results);
 

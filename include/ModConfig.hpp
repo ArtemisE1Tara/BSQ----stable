@@ -4,7 +4,9 @@
 
 
 DECLARE_CONFIG(ModConfig,
-    CONFIG_VALUE(ModEnabled, bool, "Custom solo text. (Skill Issue)", false);
+    CONFIG_VALUE(LevelEditor, bool, "Turn on the BeatMap editor button that is disabled by default.", false);
+    CONFIG_VALUE(ENABLED, bool, "Godmode, by KodenameKRAK", false);
+    //CONFIG_VALUE(ModEnabled, bool, "Custom solo text. (Skill Issue)", false);
     CONFIG_VALUE(ImageCoverExpanderEnabled, bool, "Image Cover Expander.", false);
     CONFIG_VALUE(FullComboEffectsEnabled, bool, "Full Combo Effects.", false);
     CONFIG_VALUE(SearchFixesEnabled, bool, "Enable Search Fixes.", false);
@@ -42,7 +44,9 @@ DECLARE_CONFIG(ModConfig,
 
 
     CONFIG_INIT_FUNCTION(
-        CONFIG_INIT_VALUE(ModEnabled);
+        CONFIG_INIT_VALUE(LevelEditor);
+        CONFIG_INIT_VALUE(ENABLED);
+        //CONFIG_INIT_VALUE(ModEnabled);
         CONFIG_INIT_VALUE(ImageCoverExpanderEnabled);
         CONFIG_INIT_VALUE(FullComboEffectsEnabled);
         CONFIG_INIT_VALUE(SearchFixesEnabled);
