@@ -1,6 +1,14 @@
 # BSQ+
 
-Nothing here yet...
+# Features
+- Enable BeatMapEditor button in the main menu.
+- Enable Image Cover Expander.
+- Enable SearchFixes.
+- Enable Full Combo Effects.
+- World Rotation
+    - Shifts map's spawn points to the right or left while playing a song, even directly behind you!
+ 
+
 
 ## Credits
 
