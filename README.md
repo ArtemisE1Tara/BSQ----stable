@@ -6,7 +6,7 @@
 - Enable Image Cover Expander.
 - Enable SearchFixes.
 - Enable Full Combo Effects.
-- GodMode-by KodenameKRAK
+- GodMode-by [KodenameKRAK](https://github.com/kodenamekrak)
     - Essentially makes your energy infinite, meaning that you can pass literally any level and still have your play and score uploaded to BeatLeader. 
     - **NOTE:** Accuracy is not affected, you still need to make an effort to get a *good* score.
 - World Rotation
@@ -15,7 +15,7 @@
 
 <img src="images/2.jpg" alt="drawing" width="400"/>
 
-**Also includes: RedBar by ComputerElite**
+**Also includes: RedBar by [ComputerElite](https://github.com/ComputerElite)**
 
 <img src="images/3.jpg" alt="drawing" width="400"/>
 
