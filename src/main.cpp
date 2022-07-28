@@ -42,7 +42,7 @@ Logger& getLogger() {
 //  // your code here 
 //}
 
-/*MAKE_HOOK_MATCH(MainMenuUIHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
+/*MAKE_AUTO_HOOK_MATCH(MainMenuUIHook, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
 *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
     
     // Run the original method before our code.
@@ -93,7 +93,7 @@ using namespace UnityEngine::UI;
 #include "HMUI/ImageView.hpp"
 using namespace HMUI;
 
-MAKE_HOOK_MATCH(m_DidActivate,
+MAKE_AUTO_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
                 void,
                 GlobalNamespace::StandardLevelDetailViewController* self,
@@ -116,7 +116,10 @@ MAKE_HOOK_MATCH(m_DidActivate,
     imageView->set_color(Color(0.5, 0.5, 0.5, 1));
     imageView->set_preserveAspect(false);
     imageView->dyn__skew() = 0.0f;
-}
+    }
+    else{
+        m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
+    }
 }
 
 #include "main.hpp"
@@ -171,7 +174,7 @@ static void setNotFullComboUI(UnityEngine::GameObject *clearedBannerGo)
     }
 }
 
-MAKE_HOOK_MATCH(Results, &ResultsViewController::SetDataToUI, void, ResultsViewController *self)
+MAKE_AUTO_HOOK_MATCH(Results, &ResultsViewController::SetDataToUI, void, ResultsViewController *self)
 {
     Results(self);
 
@@ -212,7 +215,7 @@ bool findSubstring(std::string str, std::string substr) {
     return str.find(substr) != std::string::npos;
 }
 
-MAKE_HOOK_MATCH(BeatmapLevelFilterModel_LevelContainsText, &BeatmapLevelFilterModel::LevelContainsText, bool, IPreviewBeatmapLevel* beatmapLevel, ArrayW<StringW> searchTexts) {
+MAKE_AUTO_HOOK_MATCH(BeatmapLevelFilterModel_LevelContainsText, &BeatmapLevelFilterModel::LevelContainsText, bool, IPreviewBeatmapLevel* beatmapLevel, ArrayW<StringW> searchTexts) {
     int words = 0;
     int matches = 0;
 
@@ -272,7 +275,7 @@ using namespace GlobalNamespace;
 #include "config-utils/shared/config-utils.hpp"
 #include "ModConfig.hpp"
 
-MAKE_HOOK_MATCH(
+MAKE_AUTO_HOOK_MATCH(
     MainMenuViewController_DidActivate,
     &MainMenuViewController::DidActivate,
     void,
@@ -401,13 +404,13 @@ void SetColor(GameEnergyUIPanel* self, float energy) {
 }
 
 
-MAKE_HOOK_MATCH(GameEnergyUIPanel_Start, &GameEnergyUIPanel::Start, void, GameEnergyUIPanel* self) {
+MAKE_AUTO_HOOK_MATCH(GameEnergyUIPanel_Start, &GameEnergyUIPanel::Start, void, GameEnergyUIPanel* self) {
     //getLogger().info("LateUpdate RedBar");
     GameEnergyUIPanel_Start(self);
     SetColor(self, 0.5f);
 }
 
-MAKE_HOOK_MATCH(GameEnergyUIPanel_HandleGameEnergyDidChange, &GameEnergyUIPanel::RefreshEnergyUI, void, GameEnergyUIPanel* self, float energy) {
+MAKE_AUTO_HOOK_MATCH(GameEnergyUIPanel_HandleGameEnergyDidChange, &GameEnergyUIPanel::RefreshEnergyUI, void, GameEnergyUIPanel* self, float energy) {
     GameEnergyUIPanel_HandleGameEnergyDidChange(self, energy);
     //getLogger().info(std::to_string(energy));
     SetColor(self, energy);
@@ -443,7 +446,7 @@ float * Wheel(int WheelPos) {
 }
 
 
-MAKE_HOOK_MATCH(GameEnergyCounter_LateUpdate, &GameEnergyCounter::LateUpdate, void, GameEnergyCounter* self) {
+MAKE_AUTO_HOOK_MATCH(GameEnergyCounter_LateUpdate, &GameEnergyCounter::LateUpdate, void, GameEnergyCounter* self) {
     //getLogger().info("LateUpdate RedBar");
     GameEnergyCounter_LateUpdate(self);
     if ((energyBarMaterialStore != nullptr && energyBarStore != nullptr && energyy == 1.0 && getModConfig().Rainbow.GetValue()) || (energyBarMaterialStore != nullptr && energyBarStore != nullptr && getModConfig().AlwaysRainbow.GetValue())) {
@@ -461,7 +464,7 @@ MAKE_HOOK_MATCH(GameEnergyCounter_LateUpdate, &GameEnergyCounter::LateUpdate, vo
     }
 }
 
-MAKE_HOOK_MATCH(SceneManager_ActiveSceneChanged, &UnityEngine::SceneManagement::SceneManager::Internal_ActiveSceneChanged, void, UnityEngine::SceneManagement::Scene previousActiveScene, UnityEngine::SceneManagement::Scene nextActiveScene) {
+MAKE_AUTO_HOOK_MATCH(SceneManager_ActiveSceneChanged, &UnityEngine::SceneManagement::SceneManager::Internal_ActiveSceneChanged, void, UnityEngine::SceneManagement::Scene previousActiveScene, UnityEngine::SceneManagement::Scene nextActiveScene) {
     SceneManager_ActiveSceneChanged(previousActiveScene, nextActiveScene);
     energyBarStore = nullptr;
     energyBarMaterialStore = nullptr;
@@ -502,10 +505,10 @@ MAKE_AUTO_HOOK_MATCH(LevelEditor, &GlobalNamespace::MainMenuViewController::DidA
 
 MAKE_AUTO_HOOK_MATCH(energy, &GameEnergyCounter::ProcessEnergyChange, void, GameEnergyCounter* self, float energyChange){
     if(getModConfig().ENABLED.GetValue()){
-    energyChange = 100.0f;
+        energyChange = 100.0f;
     }
     else{
-            energy(self, energyChange);
+        energy(self, energyChange);
     }
 
 }
@@ -583,7 +586,7 @@ extern "C" void load() {
     il2cpp_functions::Init();
     QuestUI::Init();
     //LoggerContextObject logger = getLogger().WithContext("load");
-    //QuestUI::Register::RegisterModSettingsViewController({modInfo, DidActivate});
+    //QuestUI::Register::RegisterModSettingsViewController(modInfo, DidActivate);
     QuestUI::Register::RegisterMainMenuModSettingsViewController(modInfo, DidActivate);
     QuestUI::Register::RegisterMainMenuModSettingsViewController<cm::CmSettingsViewController*>({"Custom Menu Text+"});
     
@@ -591,7 +594,7 @@ extern "C" void load() {
     getModConfig().Init(modInfo);
 
     //yoinked from krak
-    //QuestUI::Init();
+    QuestUI::Init();
 
     il2cpp_functions::Init();
 
@@ -603,7 +606,7 @@ extern "C" void load() {
     
     //INSTALL_HOOK(getLogger(), MainMenuUIHook);
 
-    INSTALL_HOOK(getLogger(), Results);
+    /*INSTALL_HOOK(getLogger(), Results);
 
     INSTALL_HOOK(getLogger(), m_DidActivate);
 
@@ -616,6 +619,6 @@ extern "C" void load() {
     INSTALL_HOOK(logger, GameEnergyCounter_LateUpdate);
     INSTALL_HOOK(logger, GameEnergyUIPanel_Start);
     INSTALL_HOOK(logger, SceneManager_ActiveSceneChanged);
-    
+    */
     getLogger().info("Installed all hooks!");
 }
