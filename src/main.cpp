@@ -7,6 +7,78 @@
 #include "hooks.hpp"
 #include "HMUI/ViewController.hpp"
 #include "UnityEngine/UI/LayoutElement.hpp"
+#include "GlobalNamespace/MainMenuViewController.hpp"
+#include "UnityEngine/UI/Button.hpp"
+#include "UnityEngine/GameObject.hpp"
+#include "HMUI/CurvedTextMeshPro.hpp"
+#include "custom-types/shared/register.hpp"
+#include "GlobalNamespace/StandardLevelDetailViewController.hpp"
+using namespace GlobalNamespace;
+#include "UnityEngine/Transform.hpp"
+#include "UnityEngine/RectTransform.hpp"
+#include "UnityEngine/Vector2.hpp"
+#include "UnityEngine/Vector3.hpp"
+#include "UnityEngine/Color.hpp"
+using namespace UnityEngine;
+using namespace UnityEngine::UI;
+#include "HMUI/ImageView.hpp"
+using namespace HMUI;
+#include "GlobalNamespace/ResultsViewController.hpp"
+#include "GlobalNamespace/LevelCompletionResults.hpp"
+#include "TMPro/TextMeshProUGUI.hpp"
+using namespace GlobalNamespace;
+using namespace TMPro;
+#include "GlobalNamespace/BeatmapLevelFilterModel.hpp"
+#include "GlobalNamespace/IPreviewBeatmapLevel.hpp"
+#include "System/StringComparison.hpp"
+#include "UI/Settings/CmSettingsViewController.hpp"
+#include "TextHandler.hpp"
+#include "custom-types/shared/register.hpp"
+#include "beatsaber-hook/shared/utils/utils-functions.h"
+#include "questui/shared/QuestUI.hpp"
+#include "questui/shared/BeatSaberUI.hpp"
+using namespace QuestUI;
+#include "GlobalNamespace/MainMenuViewController.hpp"
+using namespace GlobalNamespace;
+#include "config-utils/shared/config-utils.hpp"
+#include "ModConfig.hpp"
+#include "main.hpp"
+#include "ModConfig.hpp"
+#include "GlobalNamespace/GameEnergyUIPanel.hpp"
+#include "GlobalNamespace/GameEnergyCounter.hpp"
+#include "GlobalNamespace/IDifficultyBeatmap.hpp"
+#include "GlobalNamespace/OverrideEnvironmentSettings.hpp"
+#include "GlobalNamespace/ColorScheme.hpp"
+#include "GlobalNamespace/GameplayModifiers.hpp"
+#include "GlobalNamespace/PlayerSpecificSettings.hpp"
+#include "GlobalNamespace/PracticeSettings.hpp"
+#include "GlobalNamespace/StandardLevelScenesTransitionSetupDataSO.hpp"
+#include "GlobalNamespace/MultiplayerLevelScenesTransitionSetupDataSO.hpp"
+#include "GlobalNamespace/IPreviewBeatmapLevel.hpp"
+#include "GlobalNamespace/BeatmapDifficulty.hpp"
+#include "GlobalNamespace/BeatmapCharacteristicSO.hpp"
+
+#include "beatsaber-hook/shared/utils/typedefs.h"
+#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
+#include "beatsaber-hook/shared/utils/logging.hpp"
+#include "beatsaber-hook/shared/utils/utils.h"
+#include "beatsaber-hook/shared/utils/hooking.hpp"
+#include "beatsaber-hook/shared/utils/il2cpp-type-check.hpp"
+#include "UnityEngine/UI/Image.hpp"
+#include "UnityEngine/SceneManagement/Scene.hpp"
+#include "UnityEngine/SceneManagement/SceneManager.hpp"
+#include "RedBarViewController.hpp"
+#include "questui/shared/QuestUI.hpp"
+#include "custom-types/shared/register.hpp"
+#include "main.hpp"
+#include "hooks.hpp"
+#include "GlobalNamespace/MainMenuViewController.hpp"
+#include "UnityEngine/UI/Button.hpp"
+#include "UnityEngine/GameObject.hpp"
+#include "HMUI/CurvedTextMeshPro.hpp"
+#include "UnityEngine/Resources.hpp"
+#include "questui/shared/QuestUI.hpp"
+#include "questui/shared/BeatSaberUI.hpp"
 
 DEFINE_CONFIG(ModConfig);
 float scale = 0.2f;
@@ -28,10 +100,6 @@ Logger& getLogger() {
 
 // Think of these as C#, using MainMenuViewController, using UnityEngine.UI.Button, using HMUI.CurvedTextMeshPro ect.
 // Classes without a namespace are assigned to the GlobalNamespace
-#include "GlobalNamespace/MainMenuViewController.hpp"
-#include "UnityEngine/UI/Button.hpp"
-#include "UnityEngine/GameObject.hpp"
-#include "HMUI/CurvedTextMeshPro.hpp"
 
 // Create a hook struct, named MainMenuUIHook.
 // Target "void MainMenuViewController::DidActivate" and takes the following arguments:
@@ -72,26 +140,6 @@ Logger& getLogger() {
 }
 */
 
-#include "main.hpp"
-
-#include "custom-types/shared/register.hpp"
-
-#include "GlobalNamespace/StandardLevelDetailViewController.hpp"
-using namespace GlobalNamespace;
-
-#include "UnityEngine/GameObject.hpp"
-#include "UnityEngine/Transform.hpp"
-#include "UnityEngine/RectTransform.hpp"
-#include "UnityEngine/Vector2.hpp"
-#include "UnityEngine/Vector3.hpp"
-#include "UnityEngine/Color.hpp"
-using namespace UnityEngine;
-
-#include "UnityEngine/UI/Button.hpp"
-using namespace UnityEngine::UI;
-
-#include "HMUI/ImageView.hpp"
-using namespace HMUI;
 
 MAKE_AUTO_HOOK_MATCH(m_DidActivate,
                 &GlobalNamespace::StandardLevelDetailViewController::DidActivate,
@@ -121,18 +169,6 @@ MAKE_AUTO_HOOK_MATCH(m_DidActivate,
         m_DidActivate(self, firstActivation, addedToHeirarchy, screenSystemEnabling);
     }
 }
-
-#include "main.hpp"
-
-#include "GlobalNamespace/ResultsViewController.hpp"
-#include "GlobalNamespace/LevelCompletionResults.hpp"
-#include "HMUI/ImageView.hpp"
-#include "TMPro/TextMeshProUGUI.hpp"
-#include "UnityEngine/GameObject.hpp"
-#include "UnityEngine/Transform.hpp"
-
-using namespace GlobalNamespace;
-using namespace TMPro;
 
 static void setFullComboUI(UnityEngine::GameObject *clearedBannerGo)
 {
@@ -197,13 +233,6 @@ MAKE_AUTO_HOOK_MATCH(Results, &ResultsViewController::SetDataToUI, void, Results
 }
 
 //searchfixes
-#include "main.hpp"
-
-#include "GlobalNamespace/BeatmapLevelFilterModel.hpp"
-#include "GlobalNamespace/IPreviewBeatmapLevel.hpp"
-using namespace GlobalNamespace;
-
-#include "System/StringComparison.hpp"
 
 void toLower(std::string& str) {
     std::transform(str.begin(), str.end(), str.begin(), ::tolower);
@@ -258,22 +287,6 @@ MAKE_AUTO_HOOK_MATCH(BeatmapLevelFilterModel_LevelContainsText, &BeatmapLevelFil
 }
 
 //custommenutext
-#include "main.hpp"
-#include "UI/Settings/CmSettingsViewController.hpp"
-#include "TextHandler.hpp"
-
-#include "custom-types/shared/register.hpp"
-#include "beatsaber-hook/shared/utils/utils-functions.h"
-
-#include "questui/shared/QuestUI.hpp"
-#include "questui/shared/BeatSaberUI.hpp"
-using namespace QuestUI;
-
-#include "GlobalNamespace/MainMenuViewController.hpp"
-using namespace GlobalNamespace;
-
-#include "config-utils/shared/config-utils.hpp"
-#include "ModConfig.hpp"
 
 MAKE_AUTO_HOOK_MATCH(
     MainMenuViewController_DidActivate,
@@ -290,37 +303,6 @@ MAKE_AUTO_HOOK_MATCH(
 }
 
 //redbar
-#include "main.hpp"
-#include "ModConfig.hpp"
-#include "GlobalNamespace/GameEnergyUIPanel.hpp"
-#include "GlobalNamespace/GameEnergyCounter.hpp"
-#include "GlobalNamespace/IDifficultyBeatmap.hpp"
-#include "GlobalNamespace/OverrideEnvironmentSettings.hpp"
-#include "GlobalNamespace/ColorScheme.hpp"
-#include "GlobalNamespace/GameplayModifiers.hpp"
-#include "GlobalNamespace/PlayerSpecificSettings.hpp"
-#include "GlobalNamespace/PracticeSettings.hpp"
-#include "GlobalNamespace/StandardLevelScenesTransitionSetupDataSO.hpp"
-#include "GlobalNamespace/MultiplayerLevelScenesTransitionSetupDataSO.hpp"
-#include "GlobalNamespace/IPreviewBeatmapLevel.hpp"
-#include "GlobalNamespace/BeatmapDifficulty.hpp"
-#include "GlobalNamespace/BeatmapCharacteristicSO.hpp"
-
-#include "beatsaber-hook/shared/utils/typedefs.h"
-#include "beatsaber-hook/shared/utils/il2cpp-utils.hpp"
-#include "beatsaber-hook/shared/utils/logging.hpp"
-#include "beatsaber-hook/shared/utils/utils.h"
-#include "beatsaber-hook/shared/utils/hooking.hpp"
-#include "beatsaber-hook/shared/utils/il2cpp-type-check.hpp"
-
-#include "UnityEngine/UI/Image.hpp"
-#include "UnityEngine/SceneManagement/Scene.hpp"
-#include "UnityEngine/SceneManagement/SceneManager.hpp"
-
-#include "RedBarViewController.hpp"
-
-#include "questui/shared/QuestUI.hpp"
-#include "custom-types/shared/register.hpp"
 
 using namespace GlobalNamespace;
 using namespace UnityEngine;
@@ -470,19 +452,11 @@ MAKE_AUTO_HOOK_MATCH(SceneManager_ActiveSceneChanged, &UnityEngine::SceneManagem
     energyBarMaterialStore = nullptr;
 }
 
-
-#include "main.hpp"
-#include "hooks.hpp"
-#include "GlobalNamespace/MainMenuViewController.hpp"
-#include "UnityEngine/UI/Button.hpp"
-#include "UnityEngine/GameObject.hpp"
-#include "HMUI/CurvedTextMeshPro.hpp"
-#include "UnityEngine/Resources.hpp"
-#include "questui/shared/QuestUI.hpp"
-#include "questui/shared/BeatSaberUI.hpp"
 //add level editor
 MAKE_AUTO_HOOK_MATCH(LevelEditor, &GlobalNamespace::MainMenuViewController::DidActivate, void, GlobalNamespace::MainMenuViewController
 *self, bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling) {
+
+    LevelEditor(self, firstActivation, addedToHierarchy, screenSystemEnabling);
 
     UnityEngine::UI::Button *beatmapEditorButton = self->dyn__beatmapEditorButton();
     UnityEngine::GameObject *gameObject = beatmapEditorButton->get_gameObject();
