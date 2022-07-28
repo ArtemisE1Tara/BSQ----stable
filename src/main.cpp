@@ -591,16 +591,15 @@ extern "C" void load() {
     getModConfig().Init(modInfo);
 
     //yoinked from krak
-    QuestUI::Init();
+    //QuestUI::Init();
 
     il2cpp_functions::Init();
 
+    getLogger().info("Installing hooks...");
     auto& logger = getLogger();
     Hooks::InstallHooks(logger);
 
     //end
-
-    getLogger().info("Installing hooks...");
     
     //INSTALL_HOOK(getLogger(), MainMenuUIHook);
 
